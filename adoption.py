@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from os import system, name
+import time
 
 #Homepage for the program
 def page_home():
@@ -96,9 +97,16 @@ def page_pets_sorted():
 
 #Page to adopt a pet - remove it from the list of available pets
 def page_pets_adopt():
-    clear()
-    print('Adopt a pet.')
+    print('Please enter the pet ID you wish to adopt visit. [0 to exit]')
 
+    action = get_input(None, True)
+
+    if action == 0:
+        page_home()
+    else:
+        print('Thank you for adopting [{}], they can''t wait to see you!'.format(action))
+        time.sleep(3)
+        page_home()
 
 #Page to schedule a visit
 def page_pets_visit():
@@ -110,6 +118,8 @@ def page_pets_visit():
         page_home()
     else:
         print('Thank you for scheduling a visit with [{}], we''ll see you soon!'.format(action))
+        time.sleep(3)
+        page_home()
 
 
 #Helper function that clears the screen
@@ -122,7 +132,7 @@ def clear():
 
 #Helper function that gets user input. Limit is the upper limit allowed input(Number of user options)
 #Visit is a boolen for the vist scheduling, will ensure entered ID is in directory of pets
-def get_input(limit, visit):
+def get_input(limit, check_ID):
     while True:
         try:
             action = int(input('\nInput: '))
@@ -130,8 +140,8 @@ def get_input(limit, visit):
             print('Please enter a number.')
             continue
         else:
-            #Handles the vist scheduler - checks if valid ID inputed
-            if visit:
+            #Ensures the inputed ID is in the directory of pets
+            if check_ID:
                 if action == 0:
                     return action
                 elif action not in pet_directory:
