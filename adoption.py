@@ -2,6 +2,7 @@
 from os import system, name
 import time
 
+
 #Homepage for the program
 def page_home():
     clear()
@@ -12,11 +13,21 @@ def page_home():
     if action == 1:
         page_pets_home()
     elif action == 2:
-        page_adoption()
+        page_pets_adopt_request()
     elif action == 3:
         page_admin()
     elif action == 4:
         return
+
+
+#Page to add a pet to the directory
+def page_pets_adopt_request():
+    clear()
+    print('Please enter the requested information:')
+    get_input_pets()
+    print('Thank you for your submission!')
+    time.sleep(3)
+    page_home()
 
 
 #Admin Home page
@@ -38,12 +49,6 @@ def page_pets_home():
         page_pets_sorted()
     elif action == 3:
         page_home()
-
-
-#Page to add a pet to the directory
-def page_pets_add():
-    clear()
-    print('Adoption Homepage')
 
 
 
@@ -97,7 +102,7 @@ def page_pets_sorted():
 
 #Page to adopt a pet - remove it from the list of available pets
 def page_pets_adopt():
-    print('Please enter the pet ID you wish to adopt visit. [0 to exit]')
+    print('Please enter the pet ID you wish to adopt. [0 to exit]')
 
     action = get_input(None, True)
 
@@ -107,6 +112,7 @@ def page_pets_adopt():
         print('Thank you for adopting [{}], they can''t wait to see you!'.format(action))
         time.sleep(3)
         page_home()
+
 
 #Page to schedule a visit
 def page_pets_visit():
@@ -130,12 +136,11 @@ def clear():
         _ = system('clear')
 
 
-#Helper function that gets user input. Limit is the upper limit allowed input(Number of user options)
-#Visit is a boolen for the vist scheduling, will ensure entered ID is in directory of pets
+#Helper function that handles inputed information regarding page navigation and pet adoption/visits
 def get_input(limit, check_ID):
     while True:
         try:
-            action = int(input('\nInput: '))
+            action = int(raw_input('\nInput: '))
         except:
             print('Please enter a number.')
             continue
@@ -157,7 +162,58 @@ def get_input(limit, check_ID):
             else:
                 return action
 
+
+#Helper function that handles inputed information regarding pet information
+def get_input_pets():
+    while True:
+        animal = raw_input('\nAnimal type(Dog, Cat, Bird, Rabbit, Reptile): ')
+        if animal.lower() not in animal_types:
+            print('I''m sorry but we are not accepting that type of animal at this time.')
+            continue
+        else:
+            break
+
+    animal_type = raw_input('\nAnimal Breed/Species: ')
+    name = raw_input('\nName: ')
+
+    while True:
+        gender = raw_input('\nGender(M/F/Unkown): ')
+        if gender.lower() not in ['m', 'f', 'unknown']:
+            print('Please enter a valid gender.')
+            continue
+        else:
+            break
+
+    while True:
+        try:
+            age = int(raw_input('\nAge: '))
+        except:
+            print('Please enter a number.')
+            continue
+        else:
+            if age < 0:
+                print('Please enter a valid age.')
+                continue
+            break
+
+    while True:
+        try:
+            weight = int(raw_input('\nWeight: '))
+        except:
+            print('Please enter a number.')
+            continue
+        else:
+            if weight < 0:
+                print('Please enter a valid weight.')
+                continue
+            break
+
+    return(animal, animal_type, name, gender, age, weight)
+
+
+animal_types = ['dog', 'cat', 'bird', 'rabbit', 'reptile']
 pet_directory = [1, 2]
+
 def main():
     while True:
         page_home()
