@@ -4,9 +4,9 @@ from os import system, name
 #Homepage for the program
 def page_home():
     clear()
-    print('Welcome to the Adoption Center! What would you like to do? \n[1]View Available Pets \n[2]Pet Drop-off \n[3]Admin Login \n[4]Quit \n')
+    print('Welcome to the Adoption Center! What would you like to do? \n[1]View Available Pets \n[2]Pet Drop-off \n[3]Admin Login \n[4]Quit')
 
-    action = get_input(4)
+    action = get_input(4, False)
 
     if action == 1:
         page_pets_home()
@@ -18,12 +18,18 @@ def page_home():
         return
 
 
+#Admin Home page
+def page_admin():
+    clear()
+    print('Admin Homepage')
+
+
 #Pet viewing home page
 def page_pets_home():
     clear()
-    print('How would you like to view pets? \n[1]View All \n[2]Sorted View \n[3]Home \n')
+    print('How would you like to view pets? \n[1]View All \n[2]Sorted View \n[3]Home')
 
-    action = get_input(3)
+    action = get_input(3, False)
 
     if action == 1:
         page_pets_all()
@@ -33,31 +39,77 @@ def page_pets_home():
         page_home()
 
 
-#Adoption Home page
-def page_adoption():
+#Page to add a pet to the directory
+def page_pets_add():
     clear()
     print('Adoption Homepage')
 
 
-#Admin Home page
-def page_admin():
-    clear()
-    print('Admin Homepage')
 
-
-#Page of all available pets
+#Page that displays all available pets
 def page_pets_all():
     clear()
     print('ALL PETS LISTED HERE')
     print('\nWhat would you like to do? \n[1]Schedule a Visit \n[2]Adopt a Pet \n[3]Sorted View \n[4]Home')
 
-    action = get_input(4)
+    action = get_input(4, False)
 
-#Page of all available pets that meet some inputed criteria
+    if action == 1:
+        page_pets_visit()
+    elif action == 2:
+        page_pets_adopt()
+    elif action == 3:
+        page_pets_sorted()
+    elif action == 4:
+        page_home()
+
+
+#Page of all available pets that meet some inputed criteria(Sorted by type of animal)
 def page_pets_sorted():
     clear()
-    print('Pets Sorted Page')
+    print('How would you like to sort?\n')
 
+    #Prints all types of pets currently available
+    x=6
+    for i in range(x):
+        print('[{}]{}'.format(i+1, i+1))
+
+    animal = get_input(x, False)
+
+    clear()
+    print('Currently Available [{}]\n'.format(animal))
+    print('What would you like to do? \n[1]Schedule a Visit \n[2]Adopt a Pet \n[3]View Another Category \n[4]View All Pets \n[5]Home')
+
+    action = get_input(5, False)
+
+    if action == 1:
+        page_pets_visit()
+    elif action == 2:
+        page_pets_adopt()
+    elif action == 3:
+        page_pets_sorted()
+    elif action == 4:
+        page_pets_all()
+    elif action == 5:
+        page_home()
+
+
+#Page to adopt a pet - remove it from the list of available pets
+def page_pets_adopt():
+    clear()
+    print('Adopt a pet.')
+
+
+#Page to schedule a visit
+def page_pets_visit():
+    print('Please enter the pet ID you wish to visit. [0 to exit]')
+
+    action = get_input(None, True)
+
+    if action == 0:
+        page_home()
+    else:
+        print('Thank you for scheduling a visit with [{}], we''ll see you soon!'.format(action))
 
 
 #Helper function that clears the screen
@@ -69,20 +121,33 @@ def clear():
 
 
 #Helper function that gets user input. Limit is the upper limit allowed input(Number of user options)
-def get_input(limit):
+#Visit is a boolen for the vist scheduling, will ensure entered ID is in directory of pets
+def get_input(limit, visit):
     while True:
         try:
-            action = int(input('Input: '))
+            action = int(input('\nInput: '))
         except:
-            print('Please enter a number\n')
+            print('Please enter a number.')
             continue
         else:
-            if action < 1 or action > limit:
-                print('Please enter a valid number.\n')
+            #Handles the vist scheduler - checks if valid ID inputed
+            if visit:
+                if action == 0:
+                    return action
+                elif action not in pet_directory:
+                    print('Please enter a valid pet ID.')
+                    continue
+                else:
+                    return action
+
+            #Handles all other user inputs
+            elif action < 1 or action > limit:
+                print('Please enter a valid number.')
                 continue
             else:
                 return action
 
+pet_directory = [1, 2]
 def main():
     while True:
         page_home()
