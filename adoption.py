@@ -1,7 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from os import system, name
 import time
-
+from abc import ABC, abstractmethod
 
 #Homepage for the program
 def page_home():
@@ -19,7 +19,6 @@ def page_home():
     elif action == 4:
         return
 
-
 #Page to add a pet to the directory
 def page_pets_adopt_request():
     clear()
@@ -29,12 +28,10 @@ def page_pets_adopt_request():
     time.sleep(3)
     page_home()
 
-
 #Admin Home page
 def page_admin():
     clear()
     print('Admin Homepage')
-
 
 #Pet viewing home page
 def page_pets_home():
@@ -49,8 +46,6 @@ def page_pets_home():
         page_pets_sorted()
     elif action == 3:
         page_home()
-
-
 
 #Page that displays all available pets
 def page_pets_all():
@@ -68,7 +63,6 @@ def page_pets_all():
         page_pets_sorted()
     elif action == 4:
         page_home()
-
 
 #Page of all available pets that meet some inputed criteria(Sorted by type of animal)
 def page_pets_sorted():
@@ -99,7 +93,6 @@ def page_pets_sorted():
     elif action == 5:
         page_home()
 
-
 #Page to adopt a pet - remove it from the list of available pets
 def page_pets_adopt():
     print('Please enter the pet ID you wish to adopt. [0 to exit]')
@@ -113,7 +106,6 @@ def page_pets_adopt():
         time.sleep(3)
         page_home()
 
-
 #Page to schedule a visit
 def page_pets_visit():
     print('Please enter the pet ID you wish to visit. [0 to exit]')
@@ -123,10 +115,11 @@ def page_pets_visit():
     if action == 0:
         page_home()
     else:
-        print('Thank you for scheduling a visit with [{}], we''ll see you soon!'.format(action))
+        print('Thank you for scheduling a visit with [{}], we{}ll see you soon!'.format(action, "'"))
         time.sleep(3)
         page_home()
 
+#=========================================================================================================
 
 #Helper function that clears the screen
 def clear():
@@ -135,12 +128,11 @@ def clear():
     else:
         _ = system('clear')
 
-
 #Helper function that handles inputed information regarding page navigation and pet adoption/visits
 def get_input(limit, check_ID):
     while True:
         try:
-            action = int(raw_input('\nInput: '))
+            action = int(input('\nInput: '))
         except:
             print('Please enter a number.')
             continue
@@ -149,7 +141,7 @@ def get_input(limit, check_ID):
             if check_ID:
                 if action == 0:
                     return action
-                elif action not in pet_directory:
+                elif action not in myShelter.pet_directory:
                     print('Please enter a valid pet ID.')
                     continue
                 else:
@@ -162,22 +154,21 @@ def get_input(limit, check_ID):
             else:
                 return action
 
-
 #Helper function that handles inputed information regarding pet information
 def get_input_pets():
     while True:
-        animal = raw_input('\nAnimal type(Dog, Cat, Bird, Rabbit, Reptile): ')
-        if animal.lower() not in animal_types:
+        animal = input('\nAnimal type(Dog, Cat, Bird, Rabbit, Reptile): ')
+        if animal.lower() not in myShelter.animal_types:
             print('I''m sorry but we are not accepting that type of animal at this time.')
             continue
         else:
             break
 
-    animal_type = raw_input('\nAnimal Breed/Species: ')
-    name = raw_input('\nName: ')
+    animal_type = input('\nAnimal Breed/Species: ')
+    name = input('\nName: ')
 
     while True:
-        gender = raw_input('\nGender(M/F/Unkown): ')
+        gender = input('\nGender(M/F/Unknown): ')
         if gender.lower() not in ['m', 'f', 'unknown']:
             print('Please enter a valid gender.')
             continue
@@ -186,7 +177,7 @@ def get_input_pets():
 
     while True:
         try:
-            age = int(raw_input('\nAge: '))
+            age = int(input('\nAge: '))
         except:
             print('Please enter a number.')
             continue
@@ -198,7 +189,7 @@ def get_input_pets():
 
     while True:
         try:
-            weight = int(raw_input('\nWeight: '))
+            weight = int(input('\nWeight: '))
         except:
             print('Please enter a number.')
             continue
@@ -210,11 +201,78 @@ def get_input_pets():
 
     return(animal, animal_type, name, gender, age, weight)
 
+#=========================================================================================================
 
-animal_types = ['dog', 'cat', 'bird', 'rabbit', 'reptile']
-pet_directory = [1, 2]
+class Shelter:
+    def __init__(self):
+        self.animal_types = ['dog', 'cat', 'bird', 'rabbit', 'reptile']
+        self.pet_directory = [1, 2]
+
+class PetInterface(ABC):
+    @abstractmethod
+    def get_Name(self):
+        pass
+
+    @abstractmethod
+    def get_Species(self):
+        pass
+
+    @abstractmethod
+    def get_Age(self):
+        pass
+
+    @abstractmethod
+    def get_Weight(self):
+        pass
+
+    @abstractmethod
+    def get_Gender(self):
+        pass
+
+    @abstractmethod
+    def get_ID(self):
+        pass
+
+    @abstractmethod
+    def get_Status(self):
+        pass
+
+class Dog(PetInterface):
+
+    def __init__(self):
+        pass
+
+    def get_Name(self):
+        return self.name
+
+    def get_Species(self):
+        return self.species
+
+    def get_Age(self):
+        return self.age
+
+    def get_Weight(self):
+        return self.weight
+
+    def get_Gender(self):
+        return self.gender
+
+    def get_ID(self):
+        return self.id
+
+    def get_Status(self):
+        return self.status
+
+    def get_IsTrained(self):
+        return self.isTrained
+
+#=========================================================================================================
+
+myShelter = Shelter()
 
 def main():
+
+    m1 = Dog()
     while True:
         page_home()
         break
