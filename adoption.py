@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-from os import system, name
 import time
 import animals
+import helper
 
 #================================================================================================================================================
 #All the UI pages for the program
@@ -9,10 +9,11 @@ import animals
 
 #Homepage for the program
 def page_home():
-    clear()
+    helper.clear()
     print('Welcome to the Adoption Center! What would you like to do? \n[1]View Available Pets \n[2]Pet Drop-off \n[3]Admin Login \n[4]Quit')
 
-    action = get_input(4, False)
+    limit = 4
+    action = helper.get_next_page(limit)
 
     if action == 1:
         page_pets_home()
@@ -25,7 +26,7 @@ def page_home():
 
 #Page to add a pet to the directory
 def page_pets_adopt_request():
-    clear()
+    helper.clear()
     print('Please enter the requested information:')
     createPet()
     print('Thank you for your submission!')
@@ -34,15 +35,16 @@ def page_pets_adopt_request():
 
 #Admin Home page
 def page_admin():
-    clear()
+    helper.clear()
     print('Admin Homepage')
 
 #Pet viewing home page
 def page_pets_home():
-    clear()
+    helper.clear()
     print('How would you like to view pets? \n[1]View All \n[2]Sorted View \n[3]Home')
 
-    action = get_input(3, False)
+    limit = 3
+    action = helper.get_next_page(limit)
 
     if action == 1:
         page_pets_all()
@@ -53,12 +55,13 @@ def page_pets_home():
 
 #Page that displays all available pets
 def page_pets_all():
-    clear()
+    helper.clear()
     print('ALL PETS LISTED HERE')
     myShelter.print_Pets()
     print('\nWhat would you like to do? \n[1]Schedule a Visit \n[2]Adopt a Pet \n[3]Sorted View \n[4]Home')
 
-    action = get_input(4, False)
+    limit = 4
+    action = helper.get_next_page(limit)
 
     if action == 1:
         page_pets_visit()
@@ -71,21 +74,23 @@ def page_pets_all():
 
 #Page of all available pets that meet some inputed criteria(Sorted by type of animal)
 def page_pets_sorted():
-    clear()
+    helper.clear()
     print('How would you like to sort?\n')
 
     #Prints all types of pets currently available
-    x=6
-    for i in range(x):
-        print('[{}]{}'.format(i+1, i+1))
+    limit = 0
+    for animal in myShelter.animal_types:
+        limit = limit + 1
+        print('[{}]{}'.format(limit, animal))
 
-    animal = get_input(x, False)
+    animal = helper.get_next_page(limit)
 
-    clear()
-    print('Currently Available [{}]\n'.format(animal))
+    helper.clear()
+    print('Currently Available [{}]\n'.format(myShelter.animal_types[animal-1]))
     print('What would you like to do? \n[1]Schedule a Visit \n[2]Adopt a Pet \n[3]View Another Category \n[4]View All Pets \n[5]Home')
 
-    action = get_input(5, False)
+    limit = 5
+    action = helper.get_next_page(limit)
 
     if action == 1:
         page_pets_visit()
@@ -102,7 +107,7 @@ def page_pets_sorted():
 def page_pets_adopt():
     print('Please enter the pet ID you wish to adopt. [0 to exit]')
 
-    action = get_input(None, True)
+    action = helper.get_input_ID(myShelter.pet_directory)
 
     if action == 0:
         page_home()
@@ -115,7 +120,7 @@ def page_pets_adopt():
 def page_pets_visit():
     print('Please enter the pet ID you wish to visit. [0 to exit]')
 
-    action = get_input(None, True)
+    action = helper.get_input_ID(myShelter.pet_directory)
 
     if action == 0:
         page_home()
@@ -124,104 +129,13 @@ def page_pets_visit():
         time.sleep(3)
         page_home()
 
-#===================================================================================================================================
-#Helper Functions
-
-#Clears the screen
-def clear():
-    if name == 'nt':
-        _ = system('cls')
-    else:
-        _ = system('clear')
-
-#Handles inputed information regarding page navigation and pet adoption/visits
-def get_input(limit, check_ID):
-    while True:
-        try:
-            action = int(input('\nInput: '))
-        except:
-            print('Please enter a number.')
-            continue
-        else:
-            #Ensures the inputed ID is in the directory of pets
-            if check_ID:
-                if action == 0:
-                    return action
-                elif action not in myShelter.pet_directory:
-                    print('Please enter a valid pet ID.')
-                    continue
-                else:
-                    return action
-
-            #Handles all other user inputs
-            elif action < 1 or action > limit:
-                print('Please enter a valid number.')
-                continue
-            else:
-                return action
-
-#Helper function that handles inputed information regarding pet information
-def get_input_pets():
-    while True:
-        animal = input('\nAnimal type(Dog, Cat, Bird, Rabbit, Reptile): ')
-        if animal.lower() not in myShelter.animal_types:
-            print('I''m sorry but we are not accepting that type of animal at this time.')
-            continue
-        else:
-            break
-
-    animal_species = input('\nAnimal Breed/Species: ')
-    name = input('\nName: ')
-
-    while True:
-        gender = input('\nGender(M/F/Unknown): ')
-        if gender.lower() not in ['m', 'f', 'unknown']:
-            print('Please enter a valid gender.')
-            continue
-        else:
-            break
-
-    while True:
-        try:
-            age = int(input('\nAge: '))
-        except:
-            print('Please enter a number.')
-            continue
-        else:
-            if age < 0:
-                print('Please enter a valid age.')
-                continue
-            break
-
-    while True:
-        try:
-            weight = float(input('\nWeight: '))
-        except:
-            print('Please enter a number.')
-            continue
-        else:
-            if weight <= 0:
-                print('Please enter a valid weight.')
-                continue
-            break
-
-    return(animal, animal_species, name, gender, age, weight)
-
-#Prints all info on a given pet
-def print_Pet(pet):
-    if type(pet) == animals.Dog:
-        print('ID: {} | Animal: {} | Species: {} | Name: {} | Gender: {} | Age: {} | Weight: {} | House Trained: {} | Status: {}'.format(pet.get_ID(), pet.get_Animal(), pet.get_Species(), pet.get_Name(), pet.get_Gender(), pet.get_Age(), pet.get_Weight(), pet.get_IsTrained(), pet.get_Status()))
-
-    elif type(pet) == animals.Cat:
-        print('ID: {} | Animal: {} | Species: {} | Name: {} | Gender: {} | Age: {} | Weight: {} | Lifestyle: {} | Status: {}'.format(pet.get_ID(), pet.get_Animal(), pet.get_Species(), pet.get_Name(), pet.get_Gender(), pet.get_Age(), pet.get_Weight(), pet.get_Lifestyle(), pet.get_Status()))
-
 #============================================================================================================================
 
 #The Factory
 def createPet():
 
     #Gets info that is required for all pets
-    pet_info = get_input_pets()
+    pet_info = helper.get_input_pets(myShelter.animal_types)
 
     #Get info that is specific to each animal
     if pet_info[0].lower() == 'dog':
@@ -267,7 +181,7 @@ class Shelter:
 
     def print_Pets(self):
         for pet in self.pet_directory:
-            print_Pet(pet)
+            helper.print_Pet(pet)
 
     def increment_ID(self):
         self.id_counter = self.id_counter + 1
