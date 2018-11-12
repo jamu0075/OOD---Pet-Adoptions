@@ -44,7 +44,7 @@ def get_input_ID(pet_directory):
                 continue
 
 #Handles inputed information regarding pet information
-def get_input_pets(accepted_animals):
+def get_input_pet(accepted_animals):
     while True:
         animal = input('\nAnimal type(Dog, Cat, Bird, Rabbit, Reptile): ')
         if animal.lower() not in accepted_animals:
@@ -91,7 +91,7 @@ def get_input_pets(accepted_animals):
     return(animal, animal_species, name, gender, age, weight)
 
 #Prints all info on a given pet
-def print_Pet(pet):
+def print_pet(pet):
     if type(pet) == animals.Dog:
         print('ID: {} | Animal: {} | Species: {} | Name: {} | Gender: {} | Age: {} | Weight: {} | House Trained: {} | Status: {}'.format(pet.get_ID(), pet.get_Animal(), pet.get_Species(), pet.get_Name(), pet.get_Gender(), pet.get_Age(), pet.get_Weight(), pet.get_IsTrained(), pet.get_Status()))
 

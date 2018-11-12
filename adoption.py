@@ -135,7 +135,7 @@ def page_pets_visit():
 def createPet():
 
     #Gets info that is required for all pets
-    pet_info = helper.get_input_pets(myShelter.animal_types)
+    pet_info = helper.get_input_pet(myShelter.animal_types)
 
     #Get info that is specific to each animal
     if pet_info[0].lower() == 'dog':
@@ -181,7 +181,7 @@ class Shelter:
 
     def print_Pets(self):
         for pet in self.pet_directory:
-            helper.print_Pet(pet)
+            helper.print_pet(pet)
 
     def increment_ID(self):
         self.id_counter = self.id_counter + 1
