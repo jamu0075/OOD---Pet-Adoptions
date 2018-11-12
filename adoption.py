@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from os import system, name
 import time
-from abc import ABC, abstractmethod
+import animals
 
 #================================================================================================================================================
 #All the UI pages for the program
@@ -55,6 +55,7 @@ def page_pets_home():
 def page_pets_all():
     clear()
     print('ALL PETS LISTED HERE')
+    myShelter.print_Pets()
     print('\nWhat would you like to do? \n[1]Schedule a Visit \n[2]Adopt a Pet \n[3]Sorted View \n[4]Home')
 
     action = get_input(4, False)
@@ -208,10 +209,10 @@ def get_input_pets():
 
 #Prints all info on a given pet
 def print_Pet(pet):
-    if type(pet) == Dog:
+    if type(pet) == animals.Dog:
         print('ID: {} | Animal: {} | Species: {} | Name: {} | Gender: {} | Age: {} | Weight: {} | House Trained: {} | Status: {}'.format(pet.get_ID(), pet.get_Animal(), pet.get_Species(), pet.get_Name(), pet.get_Gender(), pet.get_Age(), pet.get_Weight(), pet.get_IsTrained(), pet.get_Status()))
 
-    elif type(pet) == Cat:
+    elif type(pet) == animals.Cat:
         print('ID: {} | Animal: {} | Species: {} | Name: {} | Gender: {} | Age: {} | Weight: {} | Lifestyle: {} | Status: {}'.format(pet.get_ID(), pet.get_Animal(), pet.get_Species(), pet.get_Name(), pet.get_Gender(), pet.get_Age(), pet.get_Weight(), pet.get_Lifestyle(), pet.get_Status()))
 
 #============================================================================================================================
@@ -224,29 +225,35 @@ def createPet():
 
     #Get info that is specific to each animal
     if pet_info[0].lower() == 'dog':
-        while True:
-            isTrained = input('\nIs {} house trained? [Y][N]: '.format(pet_info[2]))
-            if isTrained.lower() not in ['y', 'n', 'yes', 'no']:
-                print('Please enter yes or no.')
-                continue
-            else:
-                break
 
-        myShelter.id_counter = myShelter.id_counter + 1
-        myShelter.pet_directory.append(Dog(pet_info[1], pet_info[2], pet_info[3], pet_info[4], pet_info[5], isTrained))
+        isTrained = get_info_dog(pet_info[2])
+
+        #Increment ID counter before creating pet to get unique ID
+        myShelter.increment_ID()
+        myShelter.pet_directory.append(animals.Dog(pet_info[1], pet_info[2], pet_info[3], pet_info[4], pet_info[5], myShelter.get_id(), isTrained))
 
     elif pet_info[0].lower() == 'cat':
-        while True:
-            lifestyle = input('\nDoes {} enjoy being [indoors], [outdoors], or [both]? '.format(pet_info[2]))
-            if lifestyle.lower() not in ['indoors', 'outdoors', 'both']:
-                print('Please enter indoors, outdoors, or both.')
-                continue
-            else:
-                break
+        lifestyle = get_info_cat(pet_info[2])
+        myShelter.increment_ID()
+        myShelter.pet_directory.append(animals.Cat(pet_info[1], pet_info[2], pet_info[3], pet_info[4], pet_info[5], myShelter.get_id(), lifestyle))
 
-        myShelter.id_counter = myShelter.id_counter + 1
-        myShelter.pet_directory.append(Cat(pet_info[1], pet_info[2], pet_info[3], pet_info[4], pet_info[5], lifestyle))
+def get_info_dog(pet_name):
+    while True:
+        isTrained = input('\nIs {} house trained? [Y][N]: '.format(pet_name))
+        if isTrained.lower() not in ['y', 'n', 'yes', 'no']:
+            print('Please enter yes or no.')
+            continue
+        else:
+            return isTrained
 
+def get_info_cat(pet_name):
+    while True:
+        lifestyle = input('\nDoes {} enjoy being [indoors], [outdoors], or [both]? '.format(pet_name))
+        if lifestyle.lower() not in ['indoors', 'outdoors', 'both']:
+            print('Please enter indoors, outdoors, or both.')
+            continue
+        else:
+            return lifestyle
 #=========================================================================================================
 
 class Shelter:
@@ -255,175 +262,27 @@ class Shelter:
         self.pet_directory = []
         self.id_counter = 0
 
+    def get_id(self):
+        return self.id_counter
+
     def print_Pets(self):
         for pet in self.pet_directory:
             print_Pet(pet)
 
+    def increment_ID(self):
+        self.id_counter = self.id_counter + 1
 
-class PetInterface(ABC):
-
-    @abstractmethod
-    def get_Animal(self):
-        pass
-
-    @abstractmethod
-    def get_Species(self):
-        pass
-
-    @abstractmethod
-    def get_Name(self):
-        pass
-
-    @abstractmethod
-    def get_Gender(self):
-        pass
-
-    @abstractmethod
-    def get_Age(self):
-        pass
-
-    @abstractmethod
-    def get_Weight(self):
-        pass
-
-    @abstractmethod
-    def get_ID(self):
-        pass
-
-    @abstractmethod
-    def get_Status(self):
-        pass
-
-class Dog(PetInterface):
-
-    def __init__(self, species, name, gender, age, weight, isTrained):
-        self.animal = 'Dog'
-        self.species = species
-        self.name = name
-        self.gender = gender
-        self.age = age
-        self.weight = weight
-        self.isTrained = isTrained
-        self.status = 'Available'
-        self.id = myShelter.id_counter
-
-    def get_Animal(self):
-        return self.animal
-
-    def get_Name(self):
-        return self.name
-
-    def get_Species(self):
-        return self.species
-
-    def get_Age(self):
-        return self.age
-
-    def get_Weight(self):
-        return self.weight
-
-    def get_Gender(self):
-        return self.gender
-
-    def get_ID(self):
-        return self.id
-
-    def get_Status(self):
-        return self.status
-
-    def get_IsTrained(self):
-        return self.isTrained
-
-class Cat(PetInterface):
-
-    def __init__(self, species, name, gender, age, weight, lifestyle):
-        self.animal = 'Cat'
-        self.species = species
-        self.name = name
-        self.gender = gender
-        self.age = age
-        self.weight = weight
-        self.lifestyle = lifestyle
-        self.status = 'Available'
-        self.id = myShelter.id_counter
-
-    def get_Animal(self):
-        return self.animal
-
-    def get_Name(self):
-        return self.name
-
-    def get_Species(self):
-        return self.species
-
-    def get_Age(self):
-        return self.age
-
-    def get_Weight(self):
-        return self.weight
-
-    def get_Gender(self):
-        return self.gender
-
-    def get_ID(self):
-        return self.id
-
-    def get_Status(self):
-        return self.status
-
-    def get_Lifestyle(self):
-        return self.lifestyle
-
-class Bird(PetInterface):
-
-    def __init__(self, species, name, gender, age, weight, lifestyle):
-
-        self.species = species
-        self.name = name
-        self.gender = gender
-        self.age = age
-        self.weight = weight
-        self.lifestyle = lifestyle
-        self.status = 'Available'
-        self.id = myShelter.id_counter
-
-    def get_Animal(self):
-        return self.animal
-
-    def get_Name(self):
-        return self.name
-
-    def get_Species(self):
-        return self.species
-
-    def get_Age(self):
-        return self.age
-
-    def get_Weight(self):
-        return self.weight
-
-    def get_Gender(self):
-        return self.gender
-
-    def get_ID(self):
-        return self.id
-
-    def get_Status(self):
-        return self.status
-
-    def get_Lifestyle(self):
-        return self.lifestyle
 #========================================================================================================================================
 #Testing
 
 myShelter = Shelter()
 
-myShelter.id_counter = myShelter.id_counter + 1
-myDog = Dog('German Shepard', 'Fido', 'M', 5, 40, 'Y')
+myShelter.increment_ID()
+myDog = animals.Dog('German Shepard', 'Fido', 'M', 5, 40, myShelter.get_id(), 'Y')
 myShelter.pet_directory.append(myDog)
 
-myShelter.id_counter = myShelter.id_counter + 1
-myCat = Cat('Mixed', 'Fluffy', 'F', 8, 5, 'Inside')
+myShelter.increment_ID()
+myCat = animals.Cat('Mixed', 'Fluffy', 'F', 8, 5, myShelter.get_id(), 'Inside')
 myShelter.pet_directory.append(myCat)
 
 myShelter.print_Pets()
