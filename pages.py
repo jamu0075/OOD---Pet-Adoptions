@@ -27,7 +27,7 @@ def page_home(shelter):
 def page_pet_dropoff(shelter):
     helper.clear()
     print('Please enter the requested information:')
-    createPet(shelter)
+    shelter.add_Pet(createPet(shelter))
     print('Thank you for your submission!')
     time.sleep(3)
     page_home(shelter)
@@ -112,6 +112,7 @@ def page_pets_adopt(shelter):
         page_home(shelter)
     else:
         print('Thank you for adopting [{}], they can''t wait to see you!'.format(id))
+        #shelter.remove_Pet(id)
         time.sleep(3)
         page_home(shelter)
 

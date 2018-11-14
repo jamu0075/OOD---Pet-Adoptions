@@ -5,7 +5,7 @@ import helper
 
 #============================================================================================================================
 
-#The Factory
+#The Factory returns a pet
 def createPet(shelter):
 
     #Gets info that is required for all pets
@@ -18,12 +18,12 @@ def createPet(shelter):
 
         #Increment ID counter before creating pet to get unique ID
         shelter.increment_ID()
-        shelter.pet_directory.append(animals.Dog(pet_info[1], pet_info[2], pet_info[3], pet_info[4], pet_info[5], shelter.get_id(), isTrained))
+        return(animals.Dog(pet_info[1], pet_info[2], pet_info[3], pet_info[4], pet_info[5], shelter.get_id(), isTrained))
 
     elif pet_info[0].lower() == 'cat':
         lifestyle = get_info_cat(pet_info[2])
         shelter.increment_ID()
-        shelter.pet_directory.append(animals.Cat(pet_info[1], pet_info[2], pet_info[3], pet_info[4], pet_info[5], shelter.get_id(), lifestyle))
+        return(animals.Cat(pet_info[1], pet_info[2], pet_info[3], pet_info[4], pet_info[5], shelter.get_id(), lifestyle))
 
 def get_info_dog(pet_name):
     while True:
@@ -60,28 +60,30 @@ class Shelter:
     def increment_ID(self):
         self.id_counter = self.id_counter + 1
 
+    def add_Pet(self, pet):
+        self.pet_directory.append(pet)
+
+    #def remove_Pet(self, id):
+    #    if any(id == pet.id for pet in self.pet_directory):
+    #        self.pet_directory.remove(pet)
+
 #========================================================================================================================================
 #Testing
 
-myShelter = Shelter()
+#myShelter.increment_ID()
+#myDog = animals.Dog('German Shepard', 'Fido', 'M', 5, 40, myShelter.get_id(), 'Y')
+#myShelter.pet_directory.append(myDog)
 
-myShelter.increment_ID()
-myDog = animals.Dog('German Shepard', 'Fido', 'M', 5, 40, myShelter.get_id(), 'Y')
-myShelter.pet_directory.append(myDog)
+#myShelter.increment_ID()
+#myCat = animals.Cat('Mixed', 'Fluffy', 'F', 8, 5, myShelter.get_id(), 'Inside')
+#myShelter.pet_directory.append(myCat)
 
-myShelter.increment_ID()
-myCat = animals.Cat('Mixed', 'Fluffy', 'F', 8, 5, myShelter.get_id(), 'Inside')
-myShelter.pet_directory.append(myCat)
-
-myShelter.print_Pets()
+#myShelter.print_Pets()
 
 #=======================================================================================================================================
 def main():
-
-    while True:
-        pages.page_home(myShelter)
-        break
-
+    myShelter = Shelter()
+    pages.page_home(myShelter)
     print('Thanks for stopping by!')
 
 if __name__== "__main__":
