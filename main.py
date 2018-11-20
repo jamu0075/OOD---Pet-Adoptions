@@ -58,6 +58,11 @@ class Shelter:
     def add_Pet(self, pet):
         self.pet_directory.append(pet)
 
+    def update_Pet_Status(self, ID, status):
+        for pet in self.pet_directory:
+            if pet.id == ID:
+                pet.status = status
+
     #def remove_Pet(self, id):
     #    if any(id == pet.id for pet in self.pet_directory):
     #        self.pet_directory.remove(pet)

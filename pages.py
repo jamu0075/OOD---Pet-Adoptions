@@ -11,7 +11,7 @@ myFactory = PetFactory()
 #Homepage for the program
 def page_home(shelter):
     helper.clear()
-    print('Welcome to the Adoption Center! What would you like to do? \n[1]View Available Pets \n[2]Pet Drop-off \n[3]Admin Login \n[4]Quit')
+    print('Welcome to the Adoption Center! What would you like to do? \n[1]View Pets \n[2]Pet Drop-off \n[3]Admin Login \n[4]Quit')
 
     limit = 4
     action = helper.get_next_page(limit)
@@ -113,7 +113,7 @@ def page_pets_adopt(shelter):
         page_home(shelter)
     else:
         print('Thank you for adopting [{}], they can''t wait to see you!'.format(id))
-        #shelter.remove_Pet(id)
+        shelter.update_Pet_Status(id, 'Adopted')
         time.sleep(3)
         page_home(shelter)
 
@@ -127,5 +127,6 @@ def page_pets_visit(shelter):
         page_home(shelter)
     else:
         print('Thank you for scheduling a visit with [{}], we{}ll see you soon!'.format(id, "'"))
+        shelter.update_Pet_Status(id, 'On Hold')
         time.sleep(3)
         page_home(shelter)

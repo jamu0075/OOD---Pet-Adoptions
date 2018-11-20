@@ -35,6 +35,10 @@ class PetInterface(ABC):
     def get_Status(self):
         pass
 
+    @abstractmethod
+    def update_status(self, status):
+        pass
+
 class Dog(PetInterface):
 
     def __init__(self, species, name, gender, age, weight, id, isTrained):
@@ -75,6 +79,9 @@ class Dog(PetInterface):
     def get_IsTrained(self):
         return self.isTrained
 
+    def update_status(self, status):
+        self.status = status
+
 class Cat(PetInterface):
 
     def __init__(self, species, name, gender, age, weight, id, lifestyle):
@@ -114,6 +121,9 @@ class Cat(PetInterface):
 
     def get_Lifestyle(self):
         return self.lifestyle
+
+    def update_status(self, status):
+        self.status = status
 
 class Bird(PetInterface):
 
@@ -156,6 +166,9 @@ class Bird(PetInterface):
     def get_Lifestyle(self):
         return self.lifestyle
 
+    def update_status(self, status):
+        self.status = status
+
 class Reptile(PetInterface):
 
     def __init__(self, species, name, gender, age, weight, id, temperature):
@@ -197,6 +210,9 @@ class Reptile(PetInterface):
     def get_Temperature(self):
         return self.temperature
 
+    def update_status(self, status):
+        self.status = status
+
 class Rabbit(PetInterface):
 
     def __init__(self, species, name, gender, age, weight, id):
@@ -233,3 +249,6 @@ class Rabbit(PetInterface):
 
     def get_Status(self):
         return self.status
+
+    def update_status(self, status):
+        self.status = status
