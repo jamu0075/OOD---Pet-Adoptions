@@ -43,52 +43,16 @@ def get_input_ID(pet_directory):
                 print('Please enter a valid pet ID.')
                 continue
 
-#Gets all info required for pets in the shelter
+#Gets all info required for a new Pet
 def get_input_pet(accepted_animals):
-    while True:
-        animal = input('\nAnimal type(Dog, Cat, Bird, Rabbit, Reptile): ')
-        if animal.lower() not in accepted_animals:
-            print('I''m sorry but we are not accepting that type of animal at this time.')
-            continue
-        else:
-            break
-
+    animal = get_input_animal()
     animal_species = input('\nAnimal Breed/Species: ')
     name = input('\nName: ')
+    gender = get_input_gender()
+    age = get_input_age()
+    weight = get_input_weight()
 
-    while True:
-        gender = input('\nGender(M/F/Unknown): ')
-        if gender.lower() not in ['m', 'f', 'unknown']:
-            print('Please enter a valid gender.')
-            continue
-        else:
-            break
-
-    while True:
-        try:
-            age = int(input('\nAge: '))
-        except:
-            print('Please enter a number.')
-            continue
-        else:
-            if age < 0:
-                print('Please enter a valid age.')
-                continue
-            break
-
-    while True:
-        try:
-            weight = float(input('\nWeight: '))
-        except:
-            print('Please enter a number.')
-            continue
-        else:
-            if weight <= 0:
-                print('Please enter a valid weight.')
-                continue
-            break
-
-    #Get required unique info and return
+    #Get unique info and return
     if animal.lower() == 'dog':
         isTrained = get_input_dog(name)
         return(animal, animal_species, name, gender, age, weight, isTrained)
@@ -103,6 +67,54 @@ def get_input_pet(accepted_animals):
         return(animal, animal_species, name, gender, age, weight, temperature)
     else:
         return(animal, animal_species, name, gender, age, weight)
+
+#Get animal from user
+def get_input_animal():
+    while True:
+        animal = input('\nAnimal type(Dog, Cat, Bird, Rabbit, Reptile): ')
+        if animal.lower() not in accepted_animals:
+            print('I''m sorry but we are not accepting that type of animal at this time.')
+            continue
+        else:
+            return animal
+
+#Get pet gender from user
+def get_input_gender():
+    while True:
+        gender = input('\nGender(M/F/Unknown): ')
+        if gender.lower() not in ['m', 'f', 'unknown']:
+            print('Please enter a valid gender.')
+            continue
+        else:
+            return gender
+
+#Get pet age from user
+def get_input_age():
+    while True:
+        try:
+            age = int(input('\nAge: '))
+        except:
+            print('Please enter a number.')
+            continue
+        else:
+            if age < 0:
+                print('Please enter a valid age.')
+                continue
+            return age
+
+#Get pet weight from user
+def get_input_weight():
+    while True:
+        try:
+            weight = float(input('\nWeight: '))
+        except:
+            print('Please enter a number.')
+            continue
+        else:
+            if weight <= 0:
+                print('Please enter a valid weight.')
+                continue
+            return weight
 
 #Get unique dog info from user
 def get_input_dog(pet_name):

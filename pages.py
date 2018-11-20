@@ -6,6 +6,9 @@ from main import PetFactory
 #All the UI pages for the program
 #Handles all the navigation between each page individually
 
+#Pet factory to create any new Pets
+myFactory = PetFactory()
+
 #Homepage for the program
 def page_home(shelter):
     helper.clear()
@@ -27,7 +30,6 @@ def page_home(shelter):
 def page_pet_dropoff(shelter):
     helper.clear()
     print('Please enter the requested information:')
-    myFactory = PetFactory()
     shelter.add_Pet(myFactory.createPet(shelter))
     print('Thank you for your submission!')
     time.sleep(3)
@@ -56,7 +58,6 @@ def page_pets_home(shelter):
 #Page that displays all available pets
 def page_pets_all(shelter):
     helper.clear()
-    print('ALL PETS LISTED HERE')
     shelter.print_Pets()
     print('\nWhat would you like to do? \n[1]Schedule a Visit \n[2]Adopt a Pet \n[3]Sorted View \n[4]Home')
 
