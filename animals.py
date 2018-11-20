@@ -119,6 +119,7 @@ class Bird(PetInterface):
 
     def __init__(self, species, name, gender, age, weight, id, lifestyle):
 
+        self.animal = 'Bird'
         self.species = species
         self.name = name
         self.gender = gender
@@ -154,3 +155,81 @@ class Bird(PetInterface):
 
     def get_Lifestyle(self):
         return self.lifestyle
+
+class Reptile(PetInterface):
+
+    def __init__(self, species, name, gender, age, weight, id, temperature):
+
+        self.animal = 'Reptile'
+        self.species = species
+        self.name = name
+        self.gender = gender
+        self.age = age
+        self.weight = weight
+        self.temperature = temperature
+        self.status = 'Available'
+        self.id = id
+
+    def get_Animal(self):
+        return self.animal
+
+    def get_Name(self):
+        return self.name
+
+    def get_Species(self):
+        return self.species
+
+    def get_Age(self):
+        return self.age
+
+    def get_Weight(self):
+        return self.weight
+
+    def get_Gender(self):
+        return self.gender
+
+    def get_ID(self):
+        return self.id
+
+    def get_Status(self):
+        return self.status
+
+    def get_Temperature(self):
+        return self.temperature
+
+class Rabbit(PetInterface):
+
+    def __init__(self, species, name, gender, age, weight, id):
+
+        self.animal = 'Rabbit'
+        self.species = species
+        self.name = name
+        self.gender = gender
+        self.age = age
+        self.weight = weight
+        self.status = 'Available'
+        self.id = id
+
+    def get_Animal(self):
+        return self.animal
+
+    def get_Name(self):
+        return self.name
+
+    def get_Species(self):
+        return self.species
+
+    def get_Age(self):
+        return self.age
+
+    def get_Weight(self):
+        return self.weight
+
+    def get_Gender(self):
+        return self.gender
+
+    def get_ID(self):
+        return self.id
+
+    def get_Status(self):
+        return self.status

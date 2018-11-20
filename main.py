@@ -80,9 +80,26 @@ class Shelter:
 
 #myShelter.print_Pets()
 
+def defaultShelter(shelter):
+    shelter.increment_ID()
+    shelter.add_Pet(animals.Dog('German Shepard', 'Fido', 'M', 5, 40, shelter.get_id(), 'Y'))
+
+    shelter.increment_ID()
+    shelter.add_Pet(animals.Cat('Mixed', 'Fluffy', 'F', 8, 5, shelter.get_id(), 'Indoors'))
+
+    shelter.increment_ID()
+    shelter.add_Pet(animals.Bird('Parrot', 'Chirps', 'M', 3, 1.3, shelter.get_id(), 'Both'))
+
+    shelter.increment_ID()
+    shelter.add_Pet(animals.Reptile('Bearded Dragon', 'Toasty', 'Unknown', 4, 2.6, shelter.get_id(), 92))
+
+    shelter.increment_ID()
+    shelter.add_Pet(animals.Rabbit('Unknown', 'Hops', 'F', 1, 3, shelter.get_id()))
+
 #=======================================================================================================================================
 def main():
     myShelter = Shelter()
+    defaultShelter(myShelter)
     pages.page_home(myShelter)
     print('Thanks for stopping by!')
 

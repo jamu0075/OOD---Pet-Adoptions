@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import time
 import helper
-from adoption import createPet
+from main import createPet
 #================================================================================================================================================
 #All the UI pages for the program
 #Handles all the navigation between each page individually
