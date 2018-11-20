@@ -4,44 +4,33 @@ import animals
 import helper
 
 #============================================================================================================================
+#Factory that returns a Pet
+class PetFactory:
+    def createPet(self, shelter):
 
-#The Factory returns a pet
-def createPet(shelter):
+        #Gets all required info from user
+        pet_info = helper.get_input_pet(shelter.animal_types)
 
-    #Gets info that is required for all pets
-    pet_info = helper.get_input_pet(shelter.animal_types)
+        #Create appropriate Pet class, increment ID before creating pet to get a unique ID
+        if pet_info[0].lower() == 'dog':
+            shelter.increment_ID()
+            return(animals.Dog(pet_info[1], pet_info[2], pet_info[3], pet_info[4], pet_info[5], shelter.get_id(), pet_info[6]))
 
-    #Get info that is specific to each animal
-    if pet_info[0].lower() == 'dog':
+        elif pet_info[0].lower() == 'cat':
+            shelter.increment_ID()
+            return(animals.Cat(pet_info[1], pet_info[2], pet_info[3], pet_info[4], pet_info[5], shelter.get_id(), pet_info[6]))
 
-        isTrained = get_info_dog(pet_info[2])
+        elif pet_info[0].lower() == 'bird':
+            shelter.increment_ID()
+            return(animals.Bird(pet_info[1], pet_info[2], pet_info[3], pet_info[4], pet_info[5], shelter.get_id(), pet_info[6]))
 
-        #Increment ID counter before creating pet to get unique ID
-        shelter.increment_ID()
-        return(animals.Dog(pet_info[1], pet_info[2], pet_info[3], pet_info[4], pet_info[5], shelter.get_id(), isTrained))
+        elif pet_info[0].lower() == 'reptile':
+            shelter.increment_ID()
+            return(animals.Reptile(pet_info[1], pet_info[2], pet_info[3], pet_info[4], pet_info[5], shelter.get_id(), pet_info[6]))
 
-    elif pet_info[0].lower() == 'cat':
-        lifestyle = get_info_cat(pet_info[2])
-        shelter.increment_ID()
-        return(animals.Cat(pet_info[1], pet_info[2], pet_info[3], pet_info[4], pet_info[5], shelter.get_id(), lifestyle))
-
-def get_info_dog(pet_name):
-    while True:
-        isTrained = input('\nIs {} house trained? [Y][N]: '.format(pet_name))
-        if isTrained.lower() not in ['y', 'n', 'yes', 'no']:
-            print('Please enter yes or no.')
-            continue
-        else:
-            return isTrained
-
-def get_info_cat(pet_name):
-    while True:
-        lifestyle = input('\nDoes {} enjoy being [indoors], [outdoors], or [both]? '.format(pet_name))
-        if lifestyle.lower() not in ['indoors', 'outdoors', 'both']:
-            print('Please enter indoors, outdoors, or both.')
-            continue
-        else:
-            return lifestyle
+        elif pet_info[0].lower() == 'rabbit':
+            shelter.increment_ID()
+            return(animals.Rabbit(pet_info[1], pet_info[2], pet_info[3], pet_info[4], pet_info[5], shelter.get_id()))
 #=========================================================================================================
 
 class Shelter:
@@ -68,17 +57,6 @@ class Shelter:
     #        self.pet_directory.remove(pet)
 
 #========================================================================================================================================
-#Testing
-
-#myShelter.increment_ID()
-#myDog = animals.Dog('German Shepard', 'Fido', 'M', 5, 40, myShelter.get_id(), 'Y')
-#myShelter.pet_directory.append(myDog)
-
-#myShelter.increment_ID()
-#myCat = animals.Cat('Mixed', 'Fluffy', 'F', 8, 5, myShelter.get_id(), 'Inside')
-#myShelter.pet_directory.append(myCat)
-
-#myShelter.print_Pets()
 
 def defaultShelter(shelter):
     shelter.increment_ID()
@@ -97,6 +75,7 @@ def defaultShelter(shelter):
     shelter.add_Pet(animals.Rabbit('Unknown', 'Hops', 'F', 1, 3, shelter.get_id()))
 
 #=======================================================================================================================================
+
 def main():
     myShelter = Shelter()
     defaultShelter(myShelter)

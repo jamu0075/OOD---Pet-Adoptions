@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import time
 import helper
-from main import createPet
+from main import PetFactory
 #================================================================================================================================================
 #All the UI pages for the program
 #Handles all the navigation between each page individually
@@ -27,7 +27,8 @@ def page_home(shelter):
 def page_pet_dropoff(shelter):
     helper.clear()
     print('Please enter the requested information:')
-    shelter.add_Pet(createPet(shelter))
+    myFactory = PetFactory()
+    shelter.add_Pet(myFactory.createPet(shelter))
     print('Thank you for your submission!')
     time.sleep(3)
     page_home(shelter)

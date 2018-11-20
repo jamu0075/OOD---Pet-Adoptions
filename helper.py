@@ -43,7 +43,7 @@ def get_input_ID(pet_directory):
                 print('Please enter a valid pet ID.')
                 continue
 
-#Handles inputed information regarding pet information
+#Gets all info required for pets in the shelter
 def get_input_pet(accepted_animals):
     while True:
         animal = input('\nAnimal type(Dog, Cat, Bird, Rabbit, Reptile): ')
@@ -88,7 +88,62 @@ def get_input_pet(accepted_animals):
                 continue
             break
 
-    return(animal, animal_species, name, gender, age, weight)
+    #Get required unique info and return
+    if animal.lower() == 'dog':
+        isTrained = get_input_dog(name)
+        return(animal, animal_species, name, gender, age, weight, isTrained)
+    elif animal.lower() == 'cat':
+        lifestyle = get_input_cat(name)
+        return(animal, animal_species, name, gender, age, weight, lifestyle)
+    elif animal.lower() == 'bird':
+        lifestyle = get_input_bird(name)
+        return(animal, animal_species, name, gender, age, weight, lifestyle)
+    elif animal.lower() == 'reptile':
+        temperature = get_input_reptile(name)
+        return(animal, animal_species, name, gender, age, weight, temperature)
+    else:
+        return(animal, animal_species, name, gender, age, weight)
+
+#Get unique dog info from user
+def get_input_dog(pet_name):
+    while True:
+        isTrained = input('\nIs {} house trained? [Y][N]: '.format(pet_name))
+        if isTrained.lower() not in ['y', 'n', 'yes', 'no']:
+            print('Please enter yes or no.')
+            continue
+        else:
+            return isTrained
+
+#Get unique cat info from user
+def get_input_cat(pet_name):
+    while True:
+        lifestyle = input('\nDoes {} live [indoors], [outdoors], or [both]? '.format(pet_name))
+        if lifestyle.lower() not in ['indoors', 'outdoors', 'both']:
+            print('Please enter indoors, outdoors, or both.')
+            continue
+        else:
+            return lifestyle
+
+#Get unique bird info from user
+def get_input_bird(pet_name):
+    while True:
+        lifestyle = input('\nDoes {} live [caged], [uncaged], or [both] '.format(pet_name))
+        if lifestyle.lower() not in ['caged', 'uncaged', 'both']:
+            print('Please enter caged, uncaged, or both.')
+            continue
+        else:
+            return lifestyle
+
+#Get unique reptile info from user
+def get_input_reptile(pet_name):
+    while True:
+        try:
+            temperature = float(input('\nWhat temperature does {} live in? '.format(pet_name)))
+        except:
+            print('Please enter a number.')
+            continue
+        else:
+            return temperature
 
 #Prints all info on a given pet
 def print_pet(pet):
