@@ -83,11 +83,11 @@ def page_pets_sorted(shelter):
         limit = limit + 1
         print('[{}]{}'.format(limit, animal))
 
-    animal = helper.get_next_page(limit)
-
+    animal = shelter.animal_types[helper.get_next_page(limit)-1]
     helper.clear()
-    print('Currently Available [{}]\n'.format(shelter.animal_types[animal-1]))
-    print('What would you like to do? \n[1]Schedule a Visit \n[2]Adopt a Pet \n[3]View Another Category \n[4]View All Pets \n[5]Home')
+    print('Currently Available {}s: \n'.format(animal))
+    shelter.print_Pets_Sorted(animal)
+    print('\nWhat would you like to do? \n[1]Schedule a Visit \n[2]Adopt a Pet \n[3]View Another Category \n[4]View All Pets \n[5]Home')
 
     limit = 5
     action = helper.get_next_page(limit)
