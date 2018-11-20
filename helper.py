@@ -3,7 +3,7 @@ from os import system, name
 import animals
 
 #Helper Functions
-
+#================================================================================================================================================
 #Clears the screen
 def clear():
     if name == 'nt':
@@ -11,6 +11,8 @@ def clear():
     else:
         _ = system('clear')
 
+#================================================================================================================================================
+#Get next page from user. Limit is max number of options
 def get_next_page(limit):
     while True:
         try:
@@ -26,6 +28,8 @@ def get_next_page(limit):
             else:
                 return action
 
+#================================================================================================================================================
+#Get pet id from user
 def get_input_ID(pet_directory):
     while True:
         try:
@@ -43,6 +47,7 @@ def get_input_ID(pet_directory):
                 print('Please enter a valid pet ID.')
                 continue
 
+#================================================================================================================================================
 #Gets all info required for a new Pet
 def get_input_pet(accepted_animals):
     animal = get_input_animal()
@@ -157,6 +162,7 @@ def get_input_reptile(pet_name):
         else:
             return temperature
 
+#================================================================================================================================================
 #Prints all info on a given pet
 def print_pet(pet):
     if type(pet) == animals.Dog:

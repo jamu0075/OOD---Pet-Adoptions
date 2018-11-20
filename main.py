@@ -3,8 +3,8 @@ import pages
 import animals
 import helper
 
-#============================================================================================================================
-#Factory that returns a Pet
+#================================================================================================================================================
+#Factory that creates Pets
 class PetFactory:
     def createPet(self, shelter):
 
@@ -31,8 +31,9 @@ class PetFactory:
         elif pet_info[0].lower() == 'rabbit':
             shelter.increment_ID()
             return(animals.Rabbit(pet_info[1], pet_info[2], pet_info[3], pet_info[4], pet_info[5], shelter.get_id()))
-#=========================================================================================================
 
+#================================================================================================================================================
+#Shelter that manages Pets
 class Shelter:
     def __init__(self):
         self.animal_types = ['dog', 'cat', 'bird', 'rabbit', 'reptile']
@@ -56,8 +57,8 @@ class Shelter:
     #    if any(id == pet.id for pet in self.pet_directory):
     #        self.pet_directory.remove(pet)
 
-#========================================================================================================================================
-
+#================================================================================================================================================
+#Method that creates Pets for a default test shelter
 def defaultShelter(shelter):
     shelter.increment_ID()
     shelter.add_Pet(animals.Dog('German Shepard', 'Fido', 'M', 5, 40, shelter.get_id(), 'Y'))
@@ -74,7 +75,7 @@ def defaultShelter(shelter):
     shelter.increment_ID()
     shelter.add_Pet(animals.Rabbit('Unknown', 'Hops', 'F', 1, 3, shelter.get_id()))
 
-#=======================================================================================================================================
+#================================================================================================================================================
 
 def main():
     myShelter = Shelter()

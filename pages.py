@@ -3,8 +3,7 @@ import time
 import helper
 from main import PetFactory
 #================================================================================================================================================
-#All the UI pages for the program
-#Handles all the navigation between each page individually
+#All the UI pages for the program. Pages handle the navigation between each page individually.
 
 #Pet factory to create any new Pets
 myFactory = PetFactory()
