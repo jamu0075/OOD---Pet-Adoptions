@@ -72,12 +72,11 @@ def page_pets_all(shelter):
     elif action == 4:
         page_home(shelter)
 
-#Page of all available pets that meet some inputed criteria(Sorted by type of animal)
+#Page of all pets that meet some inputed criteria(Sorted by type of animal)
 def page_pets_sorted(shelter):
     helper.clear()
     print('How would you like to sort?\n')
 
-    #Prints all types of pets currently available
     limit = 0
     for animal in shelter.animal_types:
         limit = limit + 1

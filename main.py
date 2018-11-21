@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+
+""" A Sphinx Test.
+.. Author: Jacob Munoz
+"""
 import pages
 import animals
 import helper
@@ -62,14 +66,15 @@ class Shelter:
         for pet in self.pet_directory:
             if pet.id == ID:
                 pet.status = status
-
-    #def remove_Pet(self, id):
-    #    if any(id == pet.id for pet in self.pet_directory):
-    #        self.pet_directory.remove(pet)
+                break
 
 #================================================================================================================================================
 #Method that creates Pets for a default test shelter
 def defaultShelter(shelter):
+    """THIS IS A TEST COMMENT ABOUT defaultShelter
+
+    """
+
     shelter.increment_ID()
     shelter.add_Pet(animals.Dog('German Shepard', 'Fido', 'M', 5, 40, shelter.get_ID(), 'Y'))
 
