@@ -16,10 +16,12 @@ Animal Classes
 ===============
 All animal classes use the following interface:
 
-.. automodule:: animals
-   :members: PetInterface
-
 .. currentmodule:: animals
+
+Pet Interface
+-------------
+.. autoclass:: PetInterface
+   :members:
 
 Dog
 ---
@@ -50,5 +52,10 @@ Rabbit
 
 Helper Functions
 =================
+
+.. currentmodule:: helper
+
+.. automodule:: helper
+   :members:
 
 -----------------------------------------------------------------
