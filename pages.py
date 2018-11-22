@@ -3,13 +3,14 @@ import time
 import helper
 from main import PetFactory
 #================================================================================================================================================
-#All the UI pages for the program. Pages handle the navigation between each page individually.
 
 #Pet factory to create any new Pets
 myFactory = PetFactory()
 
-#Homepage for the program
+
 def page_home(shelter):
+    """Homepage for the program
+    """
     helper.clear()
     print('Welcome to the Adoption Center! What would you like to do? \n[1]View Pets \n[2]Pet Drop-off \n[3]Admin Login \n[4]Quit')
 
@@ -25,8 +26,10 @@ def page_home(shelter):
     elif action == 4:
         return
 
-#Page to add a pet to the directory
+
 def page_pet_dropoff(shelter):
+    """Page to add pets to the Shelter's Pet Directory
+    """
     helper.clear()
     print('Please enter the requested information:')
     shelter.add_Pet(myFactory.createPet(shelter))
@@ -34,13 +37,17 @@ def page_pet_dropoff(shelter):
     time.sleep(3)
     page_home(shelter)
 
-#Admin Home page
+
 def page_admin():
+    """Admin Homepage
+    """
     helper.clear()
     print('Admin Homepage')
 
-#Pet viewing home page
+
 def page_pets_home(shelter):
+    """Main Pet viewing page. Get user input for preferred viewing style
+    """
     helper.clear()
     print('How would you like to view pets? \n[1]View All \n[2]Sorted View \n[3]Home')
 
@@ -54,8 +61,10 @@ def page_pets_home(shelter):
     elif action == 3:
         page_home(shelter)
 
-#Page that displays all available pets
+
 def page_pets_all(shelter):
+    """Page to display all pets in Shelter's Pet Directory
+    """
     helper.clear()
     shelter.print_Pets()
     print('\nWhat would you like to do? \n[1]Schedule a Visit \n[2]Adopt a Pet \n[3]Sorted View \n[4]Home')
@@ -72,8 +81,10 @@ def page_pets_all(shelter):
     elif action == 4:
         page_home(shelter)
 
-#Page of all pets that meet some inputed criteria(Sorted by type of animal)
+
 def page_pets_sorted(shelter):
+    """Page to display Pets that meet a user inputed criteria(Animal Type)
+    """
     helper.clear()
     print('How would you like to sort?\n')
 
@@ -102,8 +113,10 @@ def page_pets_sorted(shelter):
     elif action == 5:
         page_home(shelter)
 
-#Page to adopt a pet - remove it from the list of available pets
+
 def page_pets_adopt(shelter):
+    """Page to adopt a pet - update the status. User inputs Pet ID to update
+    """
     print('Please enter the pet ID you wish to adopt. [0 to exit]')
 
     id = helper.get_input_ID(shelter.pet_directory)
@@ -116,8 +129,10 @@ def page_pets_adopt(shelter):
         time.sleep(3)
         page_home(shelter)
 
-#Page to schedule a visit
+
 def page_pets_visit(shelter):
+    """Page to schedule a visit with a Pet - update the status. User inputs Pet ID to update
+    """
     print('Please enter the pet ID you wish to visit. [0 to exit]')
 
     id = helper.get_input_ID(shelter.pet_directory)

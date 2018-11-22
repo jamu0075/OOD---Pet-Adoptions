@@ -52,6 +52,7 @@ Rabbit
 
 Helper Functions
 =================
+Helper functions that makeup the program functionality
 
 .. currentmodule:: helper
 
@@ -59,3 +60,10 @@ Helper Functions
    :members:
 
 -----------------------------------------------------------------
+
+Application Pages
+=================
+All the UI pages for the program. Pages handle the navigation between each page individually. **All pages require a Shelter object arg to manage**
+
+.. automodule:: pages
+   :members:
