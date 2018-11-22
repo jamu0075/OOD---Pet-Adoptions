@@ -36,7 +36,6 @@ class PetFactory:
             return(animals.Rabbit(pet_info[1], pet_info[2], pet_info[3], pet_info[4], pet_info[5], shelter.get_ID()))
 
 #================================================================================================================================================
-#Shelter that manages Pets
 class Shelter:
     """An object that keeps track of all the animals within a shelter. Holds a list of accepted animal types
         along with a list of Pet objects to manage. The ID counter provides a unique ID for all new Pets.
