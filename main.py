@@ -99,8 +99,18 @@ class Shelter:
         """
         directory.append(pet)
 
-    def remove_Pet(self, pet, directory):
-        pass
+    def remove_Pet(self, id, directory):
+        """Remove a pet from a directory
+
+            Args:
+                id(int): The id of the pet you wish to remove
+                directory(list): The directory you wish to remove the pet from
+        """
+        for i, pet in enumerate(directory):
+            if pet.id == id:
+                del directory[i]
+                print('Removed {}.'.format(pet.name))
+                break
 
 
     def get_Pet(self, ID, directory):
@@ -156,7 +166,8 @@ def defaultShelter(shelter):
     shelter.increment_ID()
     shelter.add_Pet(animals.Rabbit('Unknown', 'Hops', 'F', 1, 3, shelter.get_ID()), shelter.pet_directory)
 
-
+    shelter.increment_ID()
+    shelter.add_Pet(animals.Dog('Unknown', 'Ruff', 'M', 3, 30, shelter.get_ID(), False), shelter.pet_drop_directory)
     shelter.admin_directory.append(Admin('Jacob', 1))
 
 #================================================================================================================================================
