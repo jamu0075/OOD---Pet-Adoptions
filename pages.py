@@ -12,7 +12,7 @@ def page_home(shelter):
     """Homepage for the program
     """
     helper.clear()
-    print('Welcome to the Adoption Center! What would you like to do? \n[1]View Pets \n[2]Pet Drop-off \n[3]Admin Login \n[4]Quit')
+    print('Welcome to the Adoption Center! What would you like to do? \n[1]View All Available Pets \n[2]Pet Drop-off \n[3]Admin Login \n[4]Quit')
 
     limit = 4
     action = helper.get_next_page(limit)
@@ -49,13 +49,13 @@ def page_pets_home(shelter):
     """Main Pet viewing page. Get user input for preferred viewing style
     """
     helper.clear()
-    print('How would you like to view pets? \n[1]View All \n[2]Sorted View \n[3]Home')
+    print('How would you like to view pets? \n[1]View All Available Pets \n[2]Sort Available Pets \n[3]Home')
 
     limit = 3
     action = helper.get_next_page(limit)
 
     if action == 1:
-        page_pets_all(shelter)
+        page_pets_available(shelter)
     elif action == 2:
         page_pets_sorted(shelter)
     elif action == 3:
@@ -67,7 +67,27 @@ def page_pets_all(shelter):
     """
     helper.clear()
     shelter.print_Pets()
-    print('\nWhat would you like to do? \n[1]Schedule a Visit \n[2]Adopt a Pet \n[3]Sorted View \n[4]Home')
+    print('\nWhat would you like to do? \n[1]Schedule a Visit \n[2]Adopt a Pet \n[3]Sort Available Pets \n[4]Home')
+
+    limit = 4
+    action = helper.get_next_page(limit)
+
+    if action == 1:
+        page_pets_visit(shelter)
+    elif action == 2:
+        page_pets_adopt(shelter)
+    elif action == 3:
+        page_pets_sorted(shelter)
+    elif action == 4:
+        page_home(shelter)
+
+
+def page_pets_available(shelter):
+    """Page to display all available(Not Adopted and not On-Hold) pets in the Shelter's Pet Directory
+    """
+    helper.clear()
+    shelter.print_Pets_Available()
+    print('\nWhat would you like to do? \n[1]Schedule a Visit \n[2]Adopt a Pet \n[3]Sort Available Pets \n[4]Home')
 
     limit = 4
     action = helper.get_next_page(limit)
@@ -97,7 +117,7 @@ def page_pets_sorted(shelter):
     helper.clear()
     print('Currently Available {}s: \n'.format(animal))
     shelter.print_Pets_Sorted(animal)
-    print('\nWhat would you like to do? \n[1]Schedule a Visit \n[2]Adopt a Pet \n[3]View Another Category \n[4]View All Pets \n[5]Home')
+    print('\nWhat would you like to do? \n[1]Schedule a Visit \n[2]Adopt a Pet \n[3]View Another Category \n[4]View All Available Pets \n[5]Home')
 
     limit = 5
     action = helper.get_next_page(limit)
@@ -109,7 +129,7 @@ def page_pets_sorted(shelter):
     elif action == 3:
         page_pets_sorted(shelter)
     elif action == 4:
-        page_pets_all(shelter)
+        page_pets_available(shelter)
     elif action == 5:
         page_home(shelter)
 
@@ -124,7 +144,7 @@ def page_pets_adopt(shelter):
     if id == 0:
         page_home(shelter)
     else:
-        print('Thank you for adopting [{}], they can''t wait to see you!'.format(id))
+        print('Thank you for adopting {}, they can''t wait to see you!'.format((shelter.get_Pet(id)).name))
         shelter.update_Pet_Status(id, 'Adopted')
         time.sleep(3)
         page_home(shelter)
@@ -140,7 +160,7 @@ def page_pets_visit(shelter):
     if id == 0:
         page_home(shelter)
     else:
-        print('Thank you for scheduling a visit with [{}], we{}ll see you soon!'.format(id, "'"))
+        print('Thank you for scheduling a visit with {}, we{}ll see you soon!'.format((shelter.get_Pet(id)).name, "'"))
         shelter.update_Pet_Status(id, 'On Hold')
         time.sleep(3)
         page_home(shelter)

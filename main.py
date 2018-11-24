@@ -56,6 +56,13 @@ class Shelter:
         for pet in self.pet_directory:
             helper.print_pet(pet)
 
+    def print_Pets_Available(self):
+        """Print all pets in the Pet Directory that have a status of 'Available' using helper.print_pet()
+        """
+        for pet in self.pet_directory:
+            if pet.status == 'Available':
+                helper.print_pet(pet)
+
     def print_Pets_Sorted(self, animal):
         """Print all Pets that are an inputted animal type.
 
@@ -79,6 +86,17 @@ class Shelter:
         """
         self.pet_directory.append(pet)
 
+    def get_Pet(self, ID):
+        """Get a Pet with the unique ID
+
+            Args:
+                ID(int): unique ID of a Pet object
+            Return Type: Pet
+        """
+        for pet in self.pet_directory:
+            if pet.id == ID:
+                return pet
+
     def update_Pet_Status(self, ID, status):
         """Update a Pet's status
 
@@ -101,10 +119,18 @@ def defaultShelter(shelter):
     shelter.add_Pet(animals.Dog('German Shepard', 'Fido', 'M', 5, 40, shelter.get_ID(), True))
 
     shelter.increment_ID()
+    shelter.add_Pet(animals.Dog('Golden Retriever', 'Goldy', 'F', 6, 53, shelter.get_ID(), True))
+    shelter.update_Pet_Status(2, 'Adopted')
+
+    shelter.increment_ID()
     shelter.add_Pet(animals.Cat('Mixed', 'Fluffy', 'F', 8, 5, shelter.get_ID(), 'Indoors'))
 
     shelter.increment_ID()
     shelter.add_Pet(animals.Bird('Parrot', 'Chirps', 'M', 3, 1.3, shelter.get_ID(), 'Both'))
+
+    shelter.increment_ID()
+    shelter.add_Pet(animals.Cat('Spinx', 'Mushu', 'F', 2, 6, shelter.get_ID(), 'Indoors'))
+    shelter.update_Pet_Status(5, 'On-Hold')
 
     shelter.increment_ID()
     shelter.add_Pet(animals.Reptile('Bearded Dragon', 'Toasty', 'Unknown', 4, 2.6, shelter.get_ID(), 92))
