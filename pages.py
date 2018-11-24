@@ -22,13 +22,89 @@ def page_home(shelter):
     elif action == 2:
         page_pet_dropoff(shelter)
     elif action == 3:
-        page_admin()
+        page_admin(shelter)
     elif action == 4:
         return
 
 
+def page_admin(shelter):
+    """Select an Admin to sign in as, pass shelter and admin into the admin home page
+    """
+    helper.clear()
+    print('Who are you signing in as?\n')
+
+    limit = 0
+    for admin in shelter.admin_directory:
+        limit = limit + 1
+        print('[{}]{}'.format(limit, admin.name))
+
+    admin = shelter.admin_directory[helper.get_next_page(limit) - 1]
+    page_admin_home(shelter, admin)
+
+
+def page_admin_home(shelter, admin):
+    """The admin homepage where the user selects what operation they wish to perform
+    """
+    helper.clear()
+    print('[Admin] What would you like to do? \n[1]View Drop-Off Requests \n[2]Add Pet \n[3]Remove Pet \n[4]Home')
+
+    limit = 4
+    action = helper.get_next_page(limit)
+
+    if action == 1:
+        page_admin_dropoffs(shelter, admin)
+    elif action == 2:
+        page_admin_add_pet(shelter, admin)
+    elif action == 3:
+        pass
+    elif action == 4:
+        page_home(shelter)
+
+
+def page_admin_dropoffs(shelter, admin):
+    """Page for admins to accept/decline pet drop off requests
+    """
+    for pet in shelter.pet_drop_directory:
+        helper.print_pet(pet)
+
+    print('\n[Admin] What would you like to do? \n[1]Accept Pet \n[2]Decline Pet \n[3]Admin Home')
+
+    limit = 3
+    action = helper.get_next_page(limit)
+
+    if action == 1:
+        page_admin_accept(shelter, admin)
+    elif action == 2:
+        pass
+    elif action == 3:
+        page_admin_home(shelter, admin)
+
+
+def page_admin_accept(shelter, admin):
+    """Move a Pet from the drop off directory to the pet directory
+    """
+    print('Please enter the ID of the Pet you wish to accept.')
+    id = helper.get_input_ID(shelter.pet_drop_directory)
+    shelter.add_Pet(shelter.get_Pet(id, shelter.pet_drop_directory))
+    #shelter.pet_drop_directory.remove(shelter.get_Pet(id))
+    print('{} has been added to the pet directory!'.format((shelter.get_Pet(id, shelter.pet_drop_directory)).name))
+    time.sleep(3)
+    page_admin_home(shelter, admin)
+
+
+def page_admin_add_pet(shelter, admin):
+    """Admin can add a Pet directly to the Shelter's Pet Directory
+    """
+    helper.clear()
+    print('[Admin] Please enter the requested information:')
+    shelter.add_Pet(myFactory.createPet(shelter))
+    print('Thank you for your submission!')
+    time.sleep(3)
+    page_admin_home(shelter, admin)
+
+
 def page_pet_dropoff(shelter):
-    """Page to add pets to the Shelter's Pet Directory
+    """Page to add pets to the Shelter's drop off directory for admin approval
     """
     helper.clear()
     print('Please enter the requested information:')
@@ -36,13 +112,6 @@ def page_pet_dropoff(shelter):
     print('Thank you for your submission!')
     time.sleep(3)
     page_home(shelter)
-
-
-def page_admin():
-    """Admin Homepage
-    """
-    helper.clear()
-    print('Admin Homepage')
 
 
 def page_pets_home(shelter):
@@ -144,7 +213,7 @@ def page_pets_adopt(shelter):
     if id == 0:
         page_home(shelter)
     else:
-        print('Thank you for adopting {}, they can''t wait to see you!'.format((shelter.get_Pet(id)).name))
+        print('Thank you for adopting {}, they can''t wait to see you!'.format((shelter.get_Pet(id, shelter.pet_directory)).name))
         shelter.update_Pet_Status(id, 'Adopted')
         time.sleep(3)
         page_home(shelter)
@@ -160,7 +229,7 @@ def page_pets_visit(shelter):
     if id == 0:
         page_home(shelter)
     else:
-        print('Thank you for scheduling a visit with {}, we{}ll see you soon!'.format((shelter.get_Pet(id)).name, "'"))
+        print('Thank you for scheduling a visit with {}, we{}ll see you soon!'.format((shelter.get_Pet(id, shelter.pet_directory)).name, "'"))
         shelter.update_Pet_Status(id, 'On Hold')
         time.sleep(3)
         page_home(shelter)
