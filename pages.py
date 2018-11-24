@@ -85,7 +85,7 @@ def page_admin_accept(shelter, admin):
     """
     print('Please enter the ID of the Pet you wish to accept.')
     id = helper.get_input_ID(shelter.pet_drop_directory)
-    shelter.add_Pet(shelter.get_Pet(id, shelter.pet_drop_directory))
+    shelter.add_Pet(shelter.get_Pet(id, shelter.pet_drop_directory), shelter.pet_directory)
     #shelter.pet_drop_directory.remove(shelter.get_Pet(id))
     print('{} has been added to the pet directory!'.format((shelter.get_Pet(id, shelter.pet_drop_directory)).name))
     time.sleep(3)
@@ -97,7 +97,7 @@ def page_admin_add_pet(shelter, admin):
     """
     helper.clear()
     print('[Admin] Please enter the requested information:')
-    shelter.add_Pet(myFactory.createPet(shelter))
+    shelter.add_Pet(myFactory.createPet(shelter), shelter.pet_directory)
     print('Thank you for your submission!')
     time.sleep(3)
     page_admin_home(shelter, admin)
@@ -108,7 +108,7 @@ def page_pet_dropoff(shelter):
     """
     helper.clear()
     print('Please enter the requested information:')
-    shelter.drop_off(myFactory.createPet(shelter))
+    shelter.add_Pet(myFactory.createPet(shelter), shelter.pet_drop_directory)
     print('Thank you for your submission!')
     time.sleep(3)
     page_home(shelter)
