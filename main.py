@@ -39,8 +39,12 @@ class Admin:
     """An object that has access to admin capabilities like updating Pet information or accepting/declining new pet drop-offs
     """
 
-    def __init__(self, ID):
+    def __init__(self, name,  ID):
         self.id = ID
+        self.name = name
+
+    def accept_pet(self, shelter, pet):
+        shelter.pet_directory.append(pet)
 #================================================================================================================================================
 class Shelter:
     """An object that keeps track of all the animals within a shelter. Holds a list of accepted animal types
@@ -103,15 +107,15 @@ class Shelter:
                 pet(Pet): Pet object requesting to be added
         """
         self.pet_drop_directory.append(pet)
-        
-    def get_Pet(self, ID):
+
+    def get_Pet(self, ID, directory):
         """Get a Pet with the unique ID
 
             Args:
                 ID(int): unique ID of a Pet object
             Return Type: Pet
         """
-        for pet in self.pet_directory:
+        for pet in directory:
             if pet.id == ID:
                 return pet
 
@@ -130,7 +134,7 @@ class Shelter:
 #================================================================================================================================================
 #Method that creates Pets for a default test shelter
 def defaultShelter(shelter):
-    """THIS IS A TEST COMMENT ABOUT defaultShelter
+    """This is a default Shelter for the purposes of a demo
     """
 
     shelter.increment_ID()
@@ -155,6 +159,9 @@ def defaultShelter(shelter):
 
     shelter.increment_ID()
     shelter.add_Pet(animals.Rabbit('Unknown', 'Hops', 'F', 1, 3, shelter.get_ID()))
+
+
+    shelter.admin_directory.append(Admin('Jacob', 1))
 
 #================================================================================================================================================
 
