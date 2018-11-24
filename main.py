@@ -43,8 +43,6 @@ class Admin:
         self.id = ID
         self.name = name
 
-    def accept_pet(self, shelter, pet):
-        shelter.pet_directory.append(pet)
 #================================================================================================================================================
 class Shelter:
     """An object that keeps track of all the animals within a shelter. Holds a list of accepted animal types
@@ -92,27 +90,25 @@ class Shelter:
         """
         self.id_counter = self.id_counter + 1
 
-    def add_Pet(self, pet):
+    def add_Pet(self, pet, directory):
         """Append a Pet to the Shelter's Pet Directory
 
             Args:
                 pet(Pet): Pet object to add to the shelter
+                directory(list): Directory you wish to add a pet to
         """
-        self.pet_directory.append(pet)
+        directory.append(pet)
 
-    def drop_off(self, pet):
-        """Append a Pet to the Shelter's drop off directory
+    def remove_Pet(self, pet, directory):
+        pass
 
-            Args:
-                pet(Pet): Pet object requesting to be added
-        """
-        self.pet_drop_directory.append(pet)
 
     def get_Pet(self, ID, directory):
         """Get a Pet with the unique ID
 
             Args:
                 ID(int): unique ID of a Pet object
+                directory(list): the directory you wish to retrieve a Pet from
             Return Type: Pet
         """
         for pet in directory:
@@ -138,27 +134,27 @@ def defaultShelter(shelter):
     """
 
     shelter.increment_ID()
-    shelter.add_Pet(animals.Dog('German Shepard', 'Fido', 'M', 5, 40, shelter.get_ID(), True))
+    shelter.add_Pet(animals.Dog('German Shepard', 'Fido', 'M', 5, 40, shelter.get_ID(), True), shelter.pet_directory)
 
     shelter.increment_ID()
-    shelter.add_Pet(animals.Dog('Golden Retriever', 'Goldy', 'F', 6, 53, shelter.get_ID(), True))
+    shelter.add_Pet(animals.Dog('Golden Retriever', 'Goldy', 'F', 6, 53, shelter.get_ID(), True), shelter.pet_directory)
     shelter.update_Pet_Status(2, 'Adopted')
 
     shelter.increment_ID()
-    shelter.add_Pet(animals.Cat('Mixed', 'Fluffy', 'F', 8, 5, shelter.get_ID(), 'Indoors'))
+    shelter.add_Pet(animals.Cat('Mixed', 'Fluffy', 'F', 8, 5, shelter.get_ID(), 'Indoors'), shelter.pet_directory)
 
     shelter.increment_ID()
-    shelter.add_Pet(animals.Bird('Parrot', 'Chirps', 'M', 3, 1.3, shelter.get_ID(), 'Both'))
+    shelter.add_Pet(animals.Bird('Parrot', 'Chirps', 'M', 3, 1.3, shelter.get_ID(), 'Both'), shelter.pet_directory)
 
     shelter.increment_ID()
-    shelter.add_Pet(animals.Cat('Spinx', 'Mushu', 'F', 2, 6, shelter.get_ID(), 'Indoors'))
+    shelter.add_Pet(animals.Cat('Spinx', 'Mushu', 'F', 2, 6, shelter.get_ID(), 'Indoors'), shelter.pet_directory)
     shelter.update_Pet_Status(5, 'On-Hold')
 
     shelter.increment_ID()
-    shelter.add_Pet(animals.Reptile('Bearded Dragon', 'Toasty', 'Unknown', 4, 2.6, shelter.get_ID(), 92))
+    shelter.add_Pet(animals.Reptile('Bearded Dragon', 'Toasty', 'Unknown', 4, 2.6, shelter.get_ID(), 92), shelter.pet_directory)
 
     shelter.increment_ID()
-    shelter.add_Pet(animals.Rabbit('Unknown', 'Hops', 'F', 1, 3, shelter.get_ID()))
+    shelter.add_Pet(animals.Rabbit('Unknown', 'Hops', 'F', 1, 3, shelter.get_ID()), shelter.pet_directory)
 
 
     shelter.admin_directory.append(Admin('Jacob', 1))
