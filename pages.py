@@ -86,8 +86,8 @@ def page_admin_accept(shelter, admin):
     print('Please enter the ID of the Pet you wish to accept.')
     id = helper.get_input_ID(shelter.pet_drop_directory)
     shelter.add_Pet(shelter.get_Pet(id, shelter.pet_drop_directory), shelter.pet_directory)
-    #shelter.pet_drop_directory.remove(shelter.get_Pet(id))
-    print('{} has been added to the pet directory!'.format((shelter.get_Pet(id, shelter.pet_drop_directory)).name))
+    shelter.remove_Pet(id, shelter.pet_drop_directory)
+    #print('{} has been added to the pet directory!'.format((shelter.get_Pet(id, shelter.pet_drop_directory).name)))
     time.sleep(3)
     page_admin_home(shelter, admin)
 
