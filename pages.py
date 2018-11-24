@@ -75,19 +75,30 @@ def page_admin_dropoffs(shelter, admin):
     if action == 1:
         page_admin_accept(shelter, admin)
     elif action == 2:
-        pass
+        page_admin_decline(shelter, admin)
     elif action == 3:
         page_admin_home(shelter, admin)
 
 
 def page_admin_accept(shelter, admin):
-    """Move a Pet from the drop off directory to the pet directory
+    """Move a Pet from the drop off directory and add to the pet directory
     """
     print('Please enter the ID of the Pet you wish to accept.')
     id = helper.get_input_ID(shelter.pet_drop_directory)
     shelter.add_Pet(shelter.get_Pet(id, shelter.pet_drop_directory), shelter.pet_directory)
     shelter.remove_Pet(id, shelter.pet_drop_directory)
-    #print('{} has been added to the pet directory!'.format((shelter.get_Pet(id, shelter.pet_drop_directory).name)))
+    print('Pet {} has been accepted to the pet directory.'.format(id))
+    time.sleep(3)
+    page_admin_home(shelter, admin)
+
+
+def page_admin_decline(shelter, admin):
+    """Remove a pet from the drop off directory
+    """
+    print('Please enter the ID of the Pet you wish to decline.')
+    id = helper.get_input_ID(shelter.pet_drop_directory)
+    shelter.remove_Pet(id, shelter.pet_drop_directory)
+    print('Pet {} has been declined.'.format(id))
     time.sleep(3)
     page_admin_home(shelter, admin)
 

@@ -109,7 +109,6 @@ class Shelter:
         for i, pet in enumerate(directory):
             if pet.id == id:
                 del directory[i]
-                print('Removed {}.'.format(pet.name))
                 break
 
 
