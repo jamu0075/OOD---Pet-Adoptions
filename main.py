@@ -5,7 +5,6 @@ import animals
 import helper
 
 #================================================================================================================================================
-
 class PetFactory:
     """Factory Design Pattern that Creates Pet objects based on user inputted data
     """
@@ -36,13 +35,24 @@ class PetFactory:
             return(animals.Rabbit(pet_info[1], pet_info[2], pet_info[3], pet_info[4], pet_info[5], shelter.get_ID()))
 
 #================================================================================================================================================
+class Admin:
+    """An object that has access to admin capabilities like updating Pet information or accepting/declining new pet drop-offs
+    """
+
+    def __init__(self, ID):
+        self.id = ID
+#================================================================================================================================================
 class Shelter:
     """An object that keeps track of all the animals within a shelter. Holds a list of accepted animal types
-        along with a list of Pet objects to manage. The ID counter provides a unique ID for all new Pets.
+        along with a list of Pet objects to manage. The ID counter provides a unique ID for all new Pets. The
+        admin directory keeps track of all admin ID's that are in the shelter. The pet_drop directory keeps track
+        of all drop-off requests to be evaluated by an admin.
     """
     def __init__(self):
         self.animal_types = ['dog', 'cat', 'bird', 'rabbit', 'reptile']
         self.pet_directory = []
+        self.pet_drop_directory = []
+        self.admin_directory = []
         self.id_counter = 0
 
     def get_ID(self):
@@ -86,6 +96,14 @@ class Shelter:
         """
         self.pet_directory.append(pet)
 
+    def drop_off(self, pet):
+        """Append a Pet to the Shelter's drop off directory
+
+            Args:
+                pet(Pet): Pet object requesting to be added
+        """
+        self.pet_drop_directory.append(pet)
+        
     def get_Pet(self, ID):
         """Get a Pet with the unique ID
 
