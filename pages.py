@@ -32,7 +32,7 @@ def page_pet_dropoff(shelter):
     """
     helper.clear()
     print('Please enter the requested information:')
-    shelter.add_Pet(myFactory.createPet(shelter))
+    shelter.drop_off(myFactory.createPet(shelter))
     print('Thank you for your submission!')
     time.sleep(3)
     page_home(shelter)
