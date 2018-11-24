@@ -46,7 +46,28 @@ def page_admin_home(shelter, admin):
     """The admin homepage where the user selects what operation they wish to perform
     """
     helper.clear()
-    print('[Admin] What would you like to do? \n[1]View Drop-Off Requests \n[2]Add Pet \n[3]Remove Pet \n[4]Home')
+    print('[Admin] What would you like to do? \n[1]View All Pets \n[2]View Drop-Off Requests \n[3]Add Pet \n[4]Edit Pet \n[5]Home')
+
+    limit = 5
+    action = helper.get_next_page(limit)
+
+    if action == 1:
+        page_admin_all_pets(shelter, admin)
+    elif action == 2:
+        page_admin_dropoffs(shelter, admin)
+    elif action == 3:
+        page_admin_add_pet(shelter, admin)
+    elif action == 4:
+        pass
+    elif action == 5:
+        page_home(shelter)
+
+
+def page_admin_all_pets(shelter, admin):
+    """Print all pets in the shelter including those not available. Keep track of records
+    """
+    shelter.print_Pets()
+    print('[Admin] What would you like to do? \n[1]View Drop-Off Requests \n[2]Add Pet \n[3]Edit Pet \n[4]Home')
 
     limit = 4
     action = helper.get_next_page(limit)
@@ -58,7 +79,7 @@ def page_admin_home(shelter, admin):
     elif action == 3:
         pass
     elif action == 4:
-        page_home(shelter)
+        page_admin_home(shelter, admin)
 
 
 def page_admin_dropoffs(shelter, admin):

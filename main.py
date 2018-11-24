@@ -167,6 +167,11 @@ def defaultShelter(shelter):
 
     shelter.increment_ID()
     shelter.add_Pet(animals.Dog('Unknown', 'Ruff', 'M', 3, 30, shelter.get_ID(), False), shelter.pet_drop_directory)
+
+    shelter.increment_ID()
+    shelter.add_Pet(animals.Bird('Parrot', 'Squeks', 'F', 2, 2, shelter.get_ID(), 'Caged'), shelter.pet_directory)
+    shelter.update_Pet_Status(9, 'On-Hold')
+
     shelter.admin_directory.append(Admin('Jacob', 1))
 
 #================================================================================================================================================
