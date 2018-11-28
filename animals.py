@@ -6,49 +6,65 @@ class PetInterface(ABC):
 
     @abstractmethod
     def get_Animal(self):
-        """Return the animal's type: str
+        """Return the type of animal
+
+                Return Type: String
         """
         pass
 
     @abstractmethod
     def get_Species(self):
-        """Return the animal's species: str
+        """Return the animal's Species
+
+                Return Type: String
         """
         pass
 
     @abstractmethod
     def get_Name(self):
-        """Return the animal's name: str
+        """Return the animal's name
+
+                Return Type: String
         """
         pass
 
     @abstractmethod
     def get_Gender(self):
-        """Return the animal's gender: str(M/F)
+        """Return the animal's gender
+
+                Return Type: String
         """
         pass
 
     @abstractmethod
     def get_Age(self):
-        """Return the animal's age: int
+        """Return the animal's age
+
+                Return Type: int
         """
         pass
 
     @abstractmethod
     def get_Weight(self):
-        """Return the animal's weight: float
+        """Return the animal's weight
+
+                Return Type: float
         """
         pass
 
     @abstractmethod
     def get_ID(self):
-        """Return the animal's ID: int
+        """Return the animal's ID
+
+                Return Type: int
         """
         pass
 
     @abstractmethod
     def get_Status(self):
-        """Return the animal's status: str(Available, On-Hold, or Adopted)
+        """Return the animal's status
+
+                Return Type: String
         """
         pass
 
@@ -110,7 +126,9 @@ class Dog(PetInterface):
         return self.status
 
     def get_IsTrained(self):
-        """Return the animal's house trained status: bool
+        """Return the animal's house trained status
+
+                Return Type: bool
         """
         return self.isTrained
 
@@ -166,7 +184,9 @@ class Cat(PetInterface):
         return self.status
 
     def get_Lifestyle(self):
-        """Return the animal's preferred lifestyle(indoors, outdoors, or both)
+        """Return the animal's preferred lifestyle
+
+                Return Type: String
         """
         return self.lifestyle
 
@@ -222,7 +242,9 @@ class Bird(PetInterface):
         return self.status
 
     def get_Lifestyle(self):
-        """Return the animal's preferred lifestyle(caged, uncaged, or both)
+        """Return the animal's preferred lifestyle
+
+                Return Type: String
         """
         return self.lifestyle
 
@@ -279,6 +301,8 @@ class Reptile(PetInterface):
 
     def get_Temperature(self):
         """Return the animal's preferred temperature
+
+                Return Type: int
         """
         return self.temperature
 

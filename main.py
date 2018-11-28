@@ -7,6 +7,8 @@ import helper
 #================================================================================================================================================
 class PetFactory:
     """Factory Design Pattern that Creates Pet objects based on user inputted data
+
+            Return Type: Pet
     """
     def createPet(self, shelter):
 
@@ -43,6 +45,87 @@ class Admin:
         self.id = ID
         self.name = name
 
+    def acceptPet(shelter):
+        """Move a Pet from the drop off directory and add to the pet directory
+
+                Args:
+                    shelter(Shelter): shelter currently being managed
+        """
+        print('Please enter the ID of the Pet you wish to accept.')
+        id = helper.get_input_ID(shelter.pet_drop_directory)
+        shelter.add_Pet(shelter.get_Pet(id, shelter.pet_drop_directory), shelter.pet_directory)
+        shelter.remove_Pet(id, shelter.pet_drop_directory)
+        print('Pet {} has been accepted to the pet directory.'.format(id))
+        time.sleep(3)
+        return
+
+    def declinePet(shelter):
+        """Remove a Pet from the drop off directory
+
+                Args:
+                    shelter(Shelter): shelter currently being managed
+        """
+        print('Please enter the ID of the Pet you wish to decline.')
+        id = helper.get_input_ID(shelter.pet_drop_directory)
+        shelter.remove_Pet(id, shelter.pet_drop_directory)
+        print('Pet {} has been declined.'.format(id))
+        time.sleep(3)
+        return
+
+#================================================================================================================================================
+class Customer:
+    """An object that can update a Pet's status or dropoff a Pet
+    """
+
+    def petDropoff(shelter):
+        """Add a Pet to the Shelter's drop off directory for admin approval
+
+                Args:
+                    shelter(Shelter): current shelter being managed
+        """
+        helper.clear()
+        print('Please enter the requested information:')
+        shelter.add_Pet(myFactory.createPet(shelter), shelter.pet_drop_directory)
+        print('Thank you for your submission!')
+        time.sleep(3)
+        return
+
+    def petAdopt(shelter):
+        """Adopt a pet(Set status to Adopted). User inputs Pet ID to update
+
+                Args:
+                    shelter(Shelter): current shelter being managed
+        """
+        print('Please enter the pet ID you wish to adopt. [0 to exit]')
+
+        id = helper.get_input_ID(shelter.pet_directory)
+
+        if id == 0:
+            return(0)
+        else:
+            print('Thank you for adopting {}, they can''t wait to see you!'.format((shelter.get_Pet(id, shelter.pet_directory)).name))
+            shelter.update_Pet_Status(id, 'Adopted')
+            time.sleep(3)
+            return
+
+    def petVisit(shelter):
+        """Schedule a visit with a Pet(Set status to On-Hold). User inputs Pet ID to update
+
+                Args:
+                    shelter(Shelter): current shelter being managed
+        """
+        print('Please enter the pet ID you wish to visit. [0 to exit]')
+
+        id = helper.get_input_ID(shelter.pet_directory)
+
+        if id == 0:
+            return(0)
+        else:
+            print('Thank you for scheduling a visit with {}, we{}ll see you soon!'.format((shelter.get_Pet(id, shelter.pet_directory)).name, "'"))
+            shelter.update_Pet_Status(id, 'On Hold')
+            time.sleep(3)
+            return
+            
 #================================================================================================================================================
 class Shelter:
     """An object that keeps track of all the animals within a shelter. Holds a list of accepted animal types

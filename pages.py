@@ -102,7 +102,7 @@ def page_admin_dropoffs(shelter, admin):
 
 
 def page_admin_accept(shelter, admin):
-    """Move a Pet from the drop off directory and add to the pet directory
+    """Page to move a Pet from the drop off directory and add to the pet directory
     """
     print('Please enter the ID of the Pet you wish to accept.')
     id = helper.get_input_ID(shelter.pet_drop_directory)
@@ -114,7 +114,7 @@ def page_admin_accept(shelter, admin):
 
 
 def page_admin_decline(shelter, admin):
-    """Remove a pet from the drop off directory
+    """Page to remove a pet from the drop off directory
     """
     print('Please enter the ID of the Pet you wish to decline.')
     id = helper.get_input_ID(shelter.pet_drop_directory)
