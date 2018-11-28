@@ -1,0 +1,168 @@
+.. Pet Adoptions documentation master file, created by
+   sphinx-quickstart on Wed Nov 21 14:03:54 2018.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+******************************************
+Welcome to Pet Adoptions's documentation!
+******************************************
+
+.. contents:: Table of Contents
+   :depth: 3
+
+Main Classes
+============
+Classes that are core to the functionality of the program.
+
+Shelter
+-------
+A class that keeps track of all the animals within a shelter. Holds a list of accepted animal types along with a list of Pet objects to manage. The ID counter provides a unique ID for all new Pets.
+
+*class* main. **Shelter**
+    **add_Pet(pet, directory)**
+        Append a Pet to the Shelter's Pet Directory
+
+            Args:
+                pet(Pet): Pet object to add to the shelter
+
+                directory(list): Directory you wish to add a pet to
+    **get_ID()**
+        Returns current ID counter: int
+    **get_Pet(ID, directory)**
+        Get a Pet with the unique ID
+
+            Args:
+                ID(int): unique ID of a Pet object
+
+                directory(list): the directory you wish to retrieve a Pet from
+
+            Return Type: Pet
+    **increment_ID()**
+        Increment the ID to provide a unique ID
+    **print_Pets()**
+        Prints all pets in the Pet Directory using helper.print_pet()
+    **print_Pets_Available()**
+        Print all pets in the Pet Directory that have a status of 'Available' using helper.print_pet()
+    **print_Pets_Sorted(animal)**
+        Print all Pets that are an inputted animal type.
+
+            Args:
+                animal(str): animal type to sort by
+    **remove_Pet(id, directory)**
+        Remove a pet from a directory
+
+            Args:
+                id(int): The id of the pet you wish to remove
+
+                directory(list): The directory you wish to remove the pet from
+    **update_Pet_Status(ID, status)**
+        Update a Pet's status
+
+            Args:
+                ID(int): Pet ID to update
+                status(str): new status for Pet
+
+Customer
+--------
+An object that can update a Pet's status or dropoff a Pet
+
+*class* main. **Customer**
+    **petDropoff(shelter)**
+       Add a Pet to the Shelter's drop off directory for admin approval
+
+            Args:
+                shelter(Shelter): current shelter being managed
+    **petAdopt(shelter)**
+       Adopt a pet(Set status to Adopted). User inputs Pet ID to update
+
+            Args:
+                shelter(Shelter): current shelter being managed
+    **petVisit(shelter)**
+       Schedule a visit with a Pet(Set status to On-Hold). User inputs Pet ID to update
+
+            Args:
+                shelter(Shelter): current shelter being managed
+
+Admin
+--------
+An object that has access to admin capabilities like updating Pet information or accepting/declining new pet drop-offs
+
+*class* main. **Admin**
+    **acceptPet(shelter)**
+       Move a Pet from the drop off directory and add to the pet directory
+
+            Args:
+                shelter(Shelter): shelter currently being managed
+
+    **declinePet(shelter)**
+       Remove a Pet from the drop off directory
+
+            Args:
+                shelter(Shelter): shelter currently being managed
+
+
+Factory
+-------
+A class that creates Pet objects based off user inputted information
+
+*class* main. **PetFactory**
+   **createPet()**
+       Factory Design Pattern that Creates the appropriate Pet object based on the animal type
+
+          Return Type: Pet
+
+Animal Classes
+===============
+All animal classes use the following interface:
+
+.. currentmodule:: animals
+
+Pet Interface
+-------------
+.. autoclass:: PetInterface
+   :members:
+
+Dog
+---
+.. autoclass:: Dog
+   :members:
+
+Cat
+---
+.. autoclass:: Cat
+   :members:
+
+Bird
+----
+.. autoclass:: Bird
+   :members:
+
+Reptile
+-------
+.. autoclass:: Reptile
+   :members:
+
+Rabbit
+------
+.. autoclass:: Rabbit
+   :members:
+
+-----------------------------------------------------------------
+
+Helper Functions
+=================
+Helper functions that makeup the program functionality
+
+.. currentmodule:: helper
+
+.. automodule:: helper
+   :members:
+
+-----------------------------------------------------------------
+
+Application Pages
+=================
+All the UI pages for the program. Pages handle the navigation between each page individually. **All pages require a Shelter object arg to manage**
+
+.. automodule:: pages
+   :members:
