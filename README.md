@@ -1,6 +1,9 @@
 # Pet-Adoptions
 A system for an adoption center to manage pet adoptions.
 
+## Getting Started
+To run the program simply run the main.py file
+
 There is no way for me to embed the diagram and it is too large to be viewed in the document, I apologize.
 
 __Final Class Diagram:__ https://www.lucidchart.com/invitations/accept/7901e64a-ada1-4084-9a1d-41cf1de9ef83
