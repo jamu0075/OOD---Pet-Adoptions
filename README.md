@@ -4,7 +4,6 @@ A system for an adoption center to manage pet adoptions.
 ## Getting Started
 To run the program simply run the main.py file
 
-
 ## Part 2 Links
 __Final Class Diagram:__ https://www.lucidchart.com/invitations/accept/7901e64a-ada1-4084-9a1d-41cf1de9ef83
 
